@@ -29,10 +29,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "app/public/", "/var/www/", id: "vagrant-root", group: "www-data", :mount_options =>  ["dmode=777","fmode=666"]
+  config.vm.synced_folder "app/", "/var/www/html/", id: "vagrant-root", group: "www-data", :mount_options =>  ["dmode=777","fmode=666"]
 
-  config.vm.provision :shell, :path => "shell/install_phalcon.sh"
-  config.vm.provision :shell, :path => "shell/install_phalcon_devtools.sh"
-  config.vm.provision :shell, :path => "shell/install_phpqatools.sh"
-  config.vm.provision :shell, :path => "shell/install_nodejs.sh"
+  config.vm.provision :shell, :path => "provision/shell/install_init.sh"
+  config.vm.provision :shell, :path => "provision/shell/install_apache.sh"
+  config.vm.provision :shell, :path => "provision/shell/install_php.sh"
+  config.vm.provision :shell, :path => "provision/shell/install_phalcon.sh"
+  config.vm.provision :shell, :path => "provision/shell/install_phalcondevtools.sh"
+  config.vm.provision :shell, :path => "provision/shell/install_phpqatools.sh"
+  config.vm.provision :shell, :path => "provision/shell/install_nodejs.sh"
+  config.vm.provision :shell, :path => "provision/shell/install_mongodb.sh"
 end
