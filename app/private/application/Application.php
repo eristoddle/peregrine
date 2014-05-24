@@ -6,11 +6,9 @@ use \Phalcon\Mvc\Url as UrlResolver,
     \Phalcon\DiInterface,
     \Phalcon\Mvc\View,
     \Phalcon\Loader,
-    \Phalcon\Http\ResponseInterface,
     \Phalcon\Events\Manager as EventsManager,
     \Phalcon\Session\Adapter\Files as SessionAdapter,
     \Phalcon\Flash\Direct as FlashDirect,
-    \Phalcon\Crypt,
     \Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter,
     \Peregrine\Application\Router\ApplicationRouter;
 
@@ -108,31 +106,6 @@ class Application extends \Phalcon\Mvc\Application {
         );
 
         /**
-         * Register the flash service with custom CSS classes
-         */
-        $this->di->set(
-            'flash', function () {
-                return new FlashDirect(array(
-                    'error' => 'danger alert',
-                    'success' => 'success alert',
-                    'notice' => 'primary alert',
-                ));
-            }
-        );
-
-        /**
-         * Set up encryption key
-         */
-        //TODO:Use internal di config
-        // $this->di->set(
-        //     'crypt', function () use ('config') {
-        //         $crypt = new Crypt();
-        //         $crypt->setKey($config->application->encryptKey);
-        //         return $crypt;
-        //     }
-        // );
-
-        /**
          * Registering the application wide router with the standard routes set
          */
         $this->di->set('router', new ApplicationRouter());
@@ -191,54 +164,5 @@ class Application extends \Phalcon\Mvc\Application {
      */
     public function main() {
         echo $this->handle()->getContent();
-    }
-
-    /**
-     * Does a HMVC request inside the application
-     *
-     * Inside a controller we might do
-     * <code>
-     * $this->app->request([ 'controller' => 'do', 'action' => 'something' ], 'param');
-     * </code>
-     *
-     * @param array $location Array with the route information: 'namespace', 'module', 'controller', 'action', 'params'
-     * @return mixed
-     */
-    public function request(array $location) {
-        /** @var \Phalcon\Mvc\Dispatcher $dispatcher */
-        $dispatcher = clone $this->di->get('dispatcher');
-
-        if (isset($location['module'])) {
-            $dispatcher->setModuleName($location['module']);
-        }
-
-        if (isset($location['namespace'])) {
-            $dispatcher->setNamespaceName($location['namespace']);
-        }
-
-        if (!isset($location['controller'])) {
-            $location['controller'] = 'index';
-        }
-
-        if (!isset($location['action'])) {
-            $location['action'] = 'index';
-        }
-
-        if (!isset($location['params'])) {
-            $location['params'] = [];
-        }
-
-        $dispatcher->setControllerName($location['controller']);
-        $dispatcher->setActionName($location['action']);
-        $dispatcher->setParams((array)$location['params']);
-        $dispatcher->dispatch();
-
-        $response = $dispatcher->getReturnedValue();
-
-        if ($response instanceof ResponseInterface) {
-            return $response->getContent();
-        }
-
-        return $response;
     }
 }
