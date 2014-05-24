@@ -42,7 +42,7 @@ class MetaTags extends Tag {
         }
 
         // Generate the tag code
-        $code = '<meta name="' . $name . '" content="' . $content . '" ' . "/>".PHP_EOL;
+        $code = '<meta name="' . $name . '" content="' . $content . '" ' . "/>" . PHP_EOL;
 
         return $code;
     }

@@ -9,13 +9,11 @@ use \Peregrine\Main\Controllers\ModuleApiController;
  *
  * @RoutePrefix("/main/api")
  */
-class IndexController extends ModuleApiController
-{
-	/**
+class IndexController extends ModuleApiController {
+    /**
      * @Route("/index", paths={module="main"}, methods={"GET"}, name="main-index-index")
      */
-    public function indexAction()
-    {
+    public function indexAction() {
 
     }
 }

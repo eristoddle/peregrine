@@ -12,40 +12,44 @@ use \Phalcon\Mvc\Router\Annotations as Router;
  * addModuleResource on an instance of this class. Remember to register the controllers to the
  * autoloader.
  */
-class ApplicationRouter extends Router
-{
-	/**
-	 * Creates a new instance of ApplicationRouter class and defines standard application routes
-	 * @param boolean $defaultRoutes
-	 */
-	public function __construct($defaultRoutes = false)
-	{
-		parent::__construct($defaultRoutes);
+class ApplicationRouter extends Router {
+    /**
+     * Creates a new instance of ApplicationRouter class and defines standard application routes
+     * @param boolean $defaultRoutes
+     */
+    public function __construct($defaultRoutes = false) {
+        parent::__construct($defaultRoutes);
 
-		$this->removeExtraSlashes(true);
+        $this->removeExtraSlashes(true);
 
-		/**
-		 * Controller and action always default to 'index' 
-		 */
-		$this->setDefaults([
-		    'controller' => 'index',
-		    'action' => 'index'
-		]);
+        /**
+         * Controller and action always default to 'index'
+         */
+        $this->setDefaults(
+            [
+                'controller' => 'index',
+                'action' => 'index'
+            ]
+        );
 
-		/**
-		 * Add global matching route for the default module 'Main': 'default-route'
-		 */
-		$this->add('/', [
-			'module' => 'main',
-			'namespace' => 'Peregrine\Main\Controllers\API\\'
-		])->setName('default-route');
-		
-		/**
-		 * Add default not found route
-		 */
-		$this->notFound([
-		    'controller' => 'index',
-		    'action' => 'route404'
-		]);
-	}
+        /**
+         * Add global matching route for the default module 'Main': 'default-route'
+         */
+        $this->add(
+            '/', [
+                'module' => 'main',
+                'namespace' => 'Peregrine\Main\Controllers\API\\'
+            ]
+        )->setName('default-route');
+
+        /**
+         * Add default not found route
+         */
+        $this->notFound(
+            [
+                'controller' => 'index',
+                'action' => 'route404'
+            ]
+        );
+    }
 }

@@ -70,7 +70,7 @@ class Application extends \Phalcon\Mvc\Application {
                 'Peregrine\Application\Router' => $config->application->routerDir,
                 'Peregrine\Application\Plugins' => $config->application->pluginsDir,
                 'Peregrine\Application\Helpers' => $config->application->helpersDir
-            ), 
+            ),
             true
         )
             ->register();
@@ -141,14 +141,15 @@ class Application extends \Phalcon\Mvc\Application {
          * Specify the use of metadata adapter
          */
         $this->di->set(
-            'modelsMetadata', 
+            'modelsMetadata',
             '\Phalcon\Mvc\Model\Metadata\\' . $config->application->models->metadata->adapter
         );
 
         /**
          * Specify the annotations cache adapter
          */
-        $this->di->set('annotations', 
+        $this->di->set(
+            'annotations',
             '\Phalcon\Annotations\Adapter\\' . $config->application->annotations->adapter
         );
     }
@@ -173,8 +174,9 @@ class Application extends \Phalcon\Mvc\Application {
 
             if (!class_exists($className, false)) {
                 $loader->registerClasses(
-                    array($className => $module['path']), 
-                    true)
+                    array($className => $module['path']),
+                    true
+                )
                     ->register()
                     ->autoLoad($className);
             }

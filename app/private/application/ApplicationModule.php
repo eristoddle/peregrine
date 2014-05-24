@@ -11,7 +11,6 @@ use \Phalcon\Mvc\ModuleDefinitionInterface,
  */
 abstract class ApplicationModule
     extends UserModule
-    implements ModuleDefinitionInterface, RoutedModule
-{
+    implements ModuleDefinitionInterface, RoutedModule {
 
 }

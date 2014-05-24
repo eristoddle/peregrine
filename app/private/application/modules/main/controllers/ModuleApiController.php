@@ -7,7 +7,6 @@ use Peregrine\Application\Controllers\ApplicationApiController;
 /**
  * Base class of Main module API controller
  */
-class ModuleApiController extends ApplicationApiController
-{
+class ModuleApiController extends ApplicationApiController {
 
 }

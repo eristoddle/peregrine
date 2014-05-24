@@ -7,7 +7,6 @@ use Peregrine\Application\Models\ApplicationModel;
 /**
  * Base class of Main model
  */
-class ModuleModel extends ApplicationModel
-{
+class ModuleModel extends ApplicationModel {
 
 }
