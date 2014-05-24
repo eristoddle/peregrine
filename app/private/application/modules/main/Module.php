@@ -89,9 +89,9 @@ class Module extends ApplicationModule {
         $di->set(
             'view', function () {
                 $view = new View();
-                $view->setViewsDir(__DIR__ . '/../../../../public/themes/default/views/')
-                    ->setLayoutsDir('/layouts/')
-                    ->setPartialsDir('/partials/')
+                $view->setViewsDir(__DIR__ . '/../../../../public/themes/default/views/modules/main/views')
+                    ->setLayoutsDir('../../../layouts/')
+                    ->setPartialsDir('../../../partials/')
                     ->setTemplateAfter('main')
                     ->registerEngines(array('.phtml' => 'Phalcon\Mvc\View\Engine\Php'));
                 return $view;
