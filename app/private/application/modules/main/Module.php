@@ -64,7 +64,6 @@ class Module extends ApplicationModule
 				'Peregrine\Main\Controllers' => __DIR__ . '/controllers/',
 				'Peregrine\Main\Controllers\API' => __DIR__ . '/controllers/api/',
 				'Peregrine\Main\Models' => __DIR__ . '/models/',
-				'Peregrine\Main\Library' => __DIR__ . '/lib/',
 			], true)
 			->register();
 	}
@@ -89,11 +88,11 @@ class Module extends ApplicationModule
 		 */
 		$di->set('view', function() {
 			$view = new View();
-			$view->setViewsDir(__DIR__ . '/../../../public/src/app/modules/main/views/')
-				->setLayoutsDir('../../../layouts/')
-				->setPartialsDir('../../../partials/')
+			$view->setViewsDir(__DIR__ . '/../../../../public/themes/default/views/')
+				->setLayoutsDir('/../../../../public/themes/default/views/layouts/')
+				->setPartialsDir('/../../../../public/themes/default/views/partials/')
 	            ->setTemplateAfter('main')
-				->registerEngines(['.html' => 'Phalcon\Mvc\View\Engine\Php']);
+				->registerEngines(array('.html' => 'Phalcon\Mvc\View\Engine\Php'));
 			return $view;
 		});
 

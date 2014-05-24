@@ -23,12 +23,12 @@ class ModuleRoutes extends Group
 		/**
 		 * Configure the instance
 		 */
-		$this->setPaths([
+		$this->setPaths(array(
 			'module' => 'main',
 			'namespace' => 'Peregrine\Main\Controllers\API\\',
 			'controller' => 'index',
 			'action' => 'index'
-		]);
+		));
 
 		/**
 		 * Default route: 'main-root'

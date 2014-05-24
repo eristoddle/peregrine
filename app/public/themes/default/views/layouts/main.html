@@ -1,0 +1,32 @@
+<?php echo $this->tag->getDoctype(); ?>
+<html>
+	<head>
+        <?php echo $this->tag->stylesheetLink("bower_components/gumby/css/gumby.css"); ?>
+        <?php echo $this->tag->javascriptInclude("bower_components/gumby/js/libs/modernizr-2.6.2.min.js"); ?>
+		<?php echo $this->tag->getTitle(); ?>
+        <?php echo $this->tag->metaDescription; ?>
+		<base href="/" />
+	</head>
+	<body>
+		<?php echo $this->getContent(); ?>
+
+        <script>
+            var oldieCheck = Boolean(document.getElementsByTagName('html')[0].className.match(/\soldie\s/g));
+            if(!oldieCheck) {
+                document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"><\/script>');
+            } else {
+                document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"><\/script>');
+            }
+        </script>
+        <script>
+            if(!window.jQuery) {
+                if(!oldieCheck) {
+                    document.write('<script src="/bower_components/gumby/js/libs/jquery-2.0.2.min.js"><\/script>');
+                } else {
+                    document.write('<script src="/bower_components/gumby/js/libs/jquery-1.10.1.min.js"><\/script>');
+                }
+            }
+        </script>
+        <script gumby-debug gumby-touch="/bower_components/gumby/js/libs" src="/bower_components/gumby/js/libs/gumby.min.js"></script>
+	</body>
+</html>
