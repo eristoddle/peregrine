@@ -1,33 +1,25 @@
-<?php echo $this->tag->getDoctype(); ?>
 <html>
 <head>
-    <?php echo $this->tag->stylesheetLink("bower_components/gumby/css/gumby.css"); ?>
-    <?php echo $this->tag->javascriptInclude("bower_components/gumby/js/libs/modernizr-2.6.2.min.js"); ?>
-    <?php echo $this->tag->getTitle(); ?>
-    <?php echo $this->tag->metaDescription; ?>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="themes/default/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <base href="/"/>
 </head>
 <body>
-<?php echo $this->getContent(); ?>
-
-<script>
-    var oldieCheck = Boolean(document.getElementsByTagName('html')[0].className.match(/\soldie\s/g));
-    if (!oldieCheck) {
-        document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"><\/script>');
-    } else {
-        document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"><\/script>');
-    }
-</script>
-<script>
-    if (!window.jQuery) {
-        if (!oldieCheck) {
-            document.write('<script src="/bower_components/gumby/js/libs/jquery-2.0.2.min.js"><\/script>');
-        } else {
-            document.write('<script src="/bower_components/gumby/js/libs/jquery-1.10.1.min.js"><\/script>');
-        }
-    }
-</script>
-<script gumby-debug gumby-touch="/bower_components/gumby/js/libs"
-        src="/bower_components/gumby/js/libs/gumby.min.js"></script>
+    <?php echo $this->getContent(); ?>
+    <?php $this->partial('footer'); ?>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="themes/default/js/bootstrap.min.js"></script>
 </body>
 </html>

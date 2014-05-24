@@ -11,13 +11,5 @@ use Phalcon\Mvc\Controller,
  */
 class ApplicationController extends Controller {
     public function initialize() {
-        $this->tag->setTitle('Peregrine');
-        $this->tag->setDoctype(Tag::HTML5);
-        $this->tag->metaDescription = MetaTags::tag(
-            array(
-                'name' => 'description',
-                'content' => 'Peregrine'
-            )
-        );
     }
 }
