@@ -13,7 +13,7 @@ return new \Phalcon\Config([
 
     'controllers' => [
         'annotationRouted' => [
-            '\Peregrine\Main\Controllers\API\Index',
+            '\Peregrine\Main\Controllers\Index',
         ]
     ]
 ]);

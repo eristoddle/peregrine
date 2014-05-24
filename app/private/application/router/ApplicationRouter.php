@@ -38,7 +38,7 @@ class ApplicationRouter extends Router {
         $this->add(
             '/', [
                 'module' => 'main',
-                'namespace' => 'Peregrine\Main\Controllers\API\\'
+                'namespace' => 'Peregrine\Main\Controllers\\'
             ]
         )->setName('default-route');
 

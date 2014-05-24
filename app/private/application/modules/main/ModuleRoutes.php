@@ -24,7 +24,7 @@ class ModuleRoutes extends Group {
         $this->setPaths(
             array(
                 'module' => 'main',
-                'namespace' => 'Peregrine\Main\Controllers\API\\',
+                'namespace' => 'Peregrine\Main\Controllers\\',
                 'controller' => 'index',
                 'action' => 'index'
             )

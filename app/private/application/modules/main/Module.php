@@ -28,8 +28,7 @@ class Module extends ApplicationModule {
         $loader->registerNamespaces(
             [
                 'Peregrine\Main' => __DIR__,
-                'Peregrine\Main\Controllers' => __DIR__ . '/controllers/',
-                'Peregrine\Main\Controllers\API' => __DIR__ . '/controllers/api/'
+                'Peregrine\Main\Controllers' => __DIR__ . '/controllers/'
             ], true
         )
             ->register();
@@ -62,7 +61,6 @@ class Module extends ApplicationModule {
             [
                 'Peregrine\Main' => __DIR__,
                 'Peregrine\Main\Controllers' => __DIR__ . '/controllers/',
-                'Peregrine\Main\Controllers\API' => __DIR__ . '/controllers/api/',
                 'Peregrine\Main\Models' => __DIR__ . '/models/',
             ], true
         )
