@@ -14,6 +14,7 @@ class IndexController extends ModuleApiController {
      * @Route("/index", paths={module="main"}, methods={"GET"}, name="main-index-index")
      */
     public function indexAction() {
-
+        $this->view->setVar('page', 'HI HOW ARE YOU');
+        //var_dump($this->view);
     }
 }
