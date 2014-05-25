@@ -26,30 +26,30 @@ class ApplicationRouter extends Router {
          * Controller and action always default to 'index'
          */
         $this->setDefaults(
-            [
+            array(
                 'controller' => 'index',
                 'action' => 'index'
-            ]
+            )
         );
 
         /**
          * Add global matching route for the default module 'Main': 'default-route'
          */
         $this->add(
-            '/', [
+            '/', array(
                 'module' => 'main',
                 'namespace' => 'Peregrine\Main\Controllers\\'
-            ]
+            )
         )->setName('default-route');
 
         /**
          * Add default not found route
          */
         $this->notFound(
-            [
+            array(
                 'controller' => 'index',
                 'action' => 'route404'
-            ]
+            )
         );
     }
 }
