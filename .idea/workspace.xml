@@ -30,7 +30,7 @@
       <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="19" selection-end="19" vertical-scroll-proportion="0.07692308" vertical-offset="0" max-vertical-offset="390">
+            <state line="2" column="6" selection-start="25" selection-end="25" vertical-scroll-proportion="0.07692308" vertical-offset="0" max-vertical-offset="390">
               <folding />
             </state>
           </provider>
@@ -487,7 +487,11 @@
       <created>1401040630637</created>
       <updated>1401040630637</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="clean up">
+      <created>1401040710742</created>
+      <updated>1401040710742</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -633,7 +637,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="19" selection-end="19" vertical-scroll-proportion="0.07692308" vertical-offset="0" max-vertical-offset="390">
+        <state line="2" column="6" selection-start="25" selection-end="25" vertical-scroll-proportion="0.07692308" vertical-offset="0" max-vertical-offset="390">
           <folding />
         </state>
       </provider>
