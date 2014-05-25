@@ -40,16 +40,6 @@ class Module extends ApplicationModule {
          */
         $router = $di->getRouter();
         $router->mount(new ModuleRoutes());
-
-        /**
-         * Read names of annotated controllers from the module config and add them to the router
-         */
-        $moduleConfig = include __DIR__ . '/config/config.php';
-        if (isset($moduleConfig['controllers']['annotationRouted'])) {
-            foreach ($moduleConfig['controllers']['annotationRouted'] as $ctrl) {
-                $router->addModuleResource('main', $ctrl, '/main');
-            }
-        }
     }
 
     /**
@@ -74,12 +64,9 @@ class Module extends ApplicationModule {
      */
     public function registerServices($di) {
         /**
-         * Read application wide and module only configurations
+         * Read application wide configuration
          */
         $appConfig = $di->get('config');
-        $moduleConfig = include __DIR__ . '/config/config.php';
-
-        $di->set('moduleConfig', $moduleConfig);
 
         /**
          * Setting up the view component
@@ -125,10 +112,10 @@ class Module extends ApplicationModule {
         $di->set(
             'db', function () use ($appConfig) {
                 return new DbAdapter([
-                    'host' => $moduleConfig->database->host,
-                    'username' => $moduleConfig->database->username,
-                    'password' => $moduleConfig->database->password,
-                    'dbname' => $moduleConfig->database->name
+                    'host' => $appConfig->database->host,
+                    'username' => $appConfig->database->username,
+                    'password' => $appConfig->database->password,
+                    'dbname' => $appConfig->database->name
                 ]);
             }
         );
