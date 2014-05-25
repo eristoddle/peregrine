@@ -17,10 +17,5 @@ return new \Phalcon\Config(array(
         'pluginsDir' => __DIR__ . '/../plugins',
         'helpersDir' => __DIR__ . '/../application/helpers',
         'logsDir' => __DIR__ . '/../logs',
-        'annotations' => array('adapter' => 'Memory'),
-        'models' => array(
-            'metadata' => array('adapter' => 'Memory')
-        ),
-        'encryptKey' => '2tx6]GD}532q4x_'
     )
 ));

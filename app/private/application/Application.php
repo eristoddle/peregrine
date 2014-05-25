@@ -14,7 +14,6 @@ use \Phalcon\Mvc\Url as UrlResolver,
 
 /**
  * Application class for multi module applications
- * including HMVC internal requests.
  */
 class Application extends \Phalcon\Mvc\Application {
     /**
@@ -33,16 +32,13 @@ class Application extends \Phalcon\Mvc\Application {
         /**
          * The application wide configuration
          */
-        $this->config = include __DIR__ . '/../config/config.php';
-        //TODO:USE THIS RATHER THAN $this->config
-        $this->di->set('config', $this->config);
+        $config = include __DIR__ . '/../config/config.php';
+        $this->di->set('config', $config);
 
         /**
          * Register application wide accessible services
          */
         $this->_registerServices();
-
-        //die(var_dump($this->config));
 
         /**
          * Register the installed/configured modules
@@ -55,7 +51,7 @@ class Application extends \Phalcon\Mvc\Application {
      * ModuleDefinition to make them module-specific
      */
     protected function _registerServices() {
-        $config = $this->config;
+        $config = $this->di->get('config');
         /**
          * Register namespaces for application classes
          */
@@ -117,14 +113,6 @@ class Application extends \Phalcon\Mvc\Application {
             'modelsMetadata',
             '\Phalcon\Mvc\Model\Metadata\\' . $config->application->models->metadata->adapter
         );
-
-        /**
-         * Specify the annotations cache adapter
-         */
-        $this->di->set(
-            'annotations',
-            '\Phalcon\Annotations\Adapter\\' . $config->application->annotations->adapter
-        );
     }
 
     /**
@@ -154,7 +142,6 @@ class Application extends \Phalcon\Mvc\Application {
                     ->autoLoad($className);
             }
 
-            /** @var \Peregrine\Application\ApplicationModule $className */
             $className::initRoutes($this->di);
         }
     }
