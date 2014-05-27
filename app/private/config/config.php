@@ -15,7 +15,6 @@ return new \Phalcon\Config(array(
         'modelsDir' => __DIR__ . '/../application/models',
         'routerDir' => __DIR__ . '/../application/router',
         'pluginsDir' => __DIR__ . '/../plugins',
-        'helpersDir' => __DIR__ . '/../application/helpers',
-        'logsDir' => __DIR__ . '/../logs',
+        'helpersDir' => __DIR__ . '/../application/helpers'
     )
 ));
