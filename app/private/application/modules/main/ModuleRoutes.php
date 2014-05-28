@@ -30,29 +30,13 @@ class ModuleRoutes extends Group {
             )
         );
 
-        /**
-         * Default route: 'main-root'
-         */
-        $this->addGet('', array())
-            ->setName('main-root');
-
-        /**
-         * Controller route: 'main-controller'
-         */
-        $this->addGet('/:controller', array('controller' => 1))
-            ->setName('main-controller');
-
-        /**
-         * Action route: 'main-action'
-         */
         $this->addGet(
             '/:controller/:action/:params', array(
                 'controller' => 1,
                 'action' => 2,
                 'params' => 3
             )
-        )
-            ->setName('main-action');
+        );
 
         /**
          * Add all Peregrine\Main specific routes here

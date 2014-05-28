@@ -15,8 +15,4 @@ class IndexController extends ModuleController {
 	public function infoAction(){
 		
 	}
-
-	public function route404Action(){
-		
-	}
 }

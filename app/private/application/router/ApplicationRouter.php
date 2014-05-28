@@ -2,15 +2,11 @@
 
 namespace Peregrine\Application\Router;
 
-use \Phalcon\Mvc\Router\Annotations as Router;
+use \Phalcon\Mvc\Router as Router;
 
 /**
  * This class acts as the application router and defines global application routes.
- * Module specific routes are defined inside the ModuleRoutes classes. Since this
- * class extends the \Phalcon\Mvc\Router\Annotations class annotations are also allowed
- * for routing. Therefore add the Controllers as resources in the ModuleRoutes by invoking
- * addModuleResource on an instance of this class. Remember to register the controllers to the
- * autoloader.
+ * Module specific routes are defined inside the ModuleRoutes classes.
  */
 class ApplicationRouter extends Router {
     /**
@@ -33,22 +29,23 @@ class ApplicationRouter extends Router {
         );
 
         /**
-         * Add global matching route for the default module 'Main': 'default-route'
+         * Add global matching route for the default module 'Main'
          */
         $this->add(
             '/', array(
                 'module' => 'main',
                 'namespace' => 'Peregrine\Main\Controllers\\'
             )
-        )->setName('default-route');
+        );
 
-        /**
-         * Add default not found route
-         */
-        $this->notFound(
+        $this->add(
+            "/:action/:params",
             array(
+                'module' => 'main',
+                'namespace' => 'Peregrine\Main\Controllers\\',
                 'controller' => 'index',
-                'action' => 'route404'
+                'action' => 1,
+                'params' => 2,
             )
         );
     }
