@@ -19,22 +19,14 @@ class ApplicationRouter extends Router {
         $this->removeExtraSlashes(true);
 
         /**
-         * Controller and action always default to 'index'
+         * Defaults
          */
         $this->setDefaults(
             array(
+                'module' => 'main',
+                'namespace' => 'Peregrine\Main\Controllers\\',
                 'controller' => 'index',
                 'action' => 'index'
-            )
-        );
-
-        /**
-         * Add global matching route for the default module 'Main'
-         */
-        $this->add(
-            '/', array(
-                'module' => 'main',
-                'namespace' => 'Peregrine\Main\Controllers\\'
             )
         );
 
