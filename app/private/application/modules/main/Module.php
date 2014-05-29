@@ -26,10 +26,10 @@ class Module extends ApplicationModule {
     public static function initRoutes(DiInterface $di) {
         $loader = new Loader();
         $loader->registerNamespaces(
-            [
+            array(
                 'Peregrine\Main' => __DIR__,
                 'Peregrine\Main\Controllers' => __DIR__ . '/controllers/'
-            ], true
+            ), true
         )
             ->register();
 
@@ -48,11 +48,11 @@ class Module extends ApplicationModule {
     public function registerAutoloaders() {
         $loader = new Loader();
         $loader->registerNamespaces(
-            [
+            array
                 'Peregrine\Main' => __DIR__,
                 'Peregrine\Main\Controllers' => __DIR__ . '/controllers/',
                 'Peregrine\Main\Models' => __DIR__ . '/models/',
-            ], true
+            ), true
         )
             ->register();
     }
@@ -111,12 +111,12 @@ class Module extends ApplicationModule {
          */
         $di->set(
             'db', function () use ($appConfig) {
-                return new DbAdapter([
+                return new DbAdapter(array(
                     'host' => $appConfig->database->host,
                     'username' => $appConfig->database->username,
                     'password' => $appConfig->database->password,
                     'dbname' => $appConfig->database->name
-                ]);
+                ));
             }
         );
     }
