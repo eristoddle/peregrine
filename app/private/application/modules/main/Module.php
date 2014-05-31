@@ -48,7 +48,7 @@ class Module extends ApplicationModule {
     public function registerAutoloaders() {
         $loader = new Loader();
         $loader->registerNamespaces(
-            array
+            array(
                 'Peregrine\Main' => __DIR__,
                 'Peregrine\Main\Controllers' => __DIR__ . '/controllers/',
                 'Peregrine\Main\Models' => __DIR__ . '/models/',
