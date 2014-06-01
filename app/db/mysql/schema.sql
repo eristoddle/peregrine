@@ -1,216 +1,427 @@
-CREATE DATABASE  IF NOT EXISTS `peregrine` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
-USE `peregrine`;
--- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (x86_64)
---
--- Host: 127.0.0.1    Database: peregrine
--- ------------------------------------------------------
--- Server version	5.5.37-0ubuntu0.14.04.1
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE SCHEMA IF NOT EXISTS `peregrine` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
+USE `peregrine` ;
 
---
--- Table structure for table `access_list`
---
+-- -----------------------------------------------------
+-- Table `access_list`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `access_list` ;
 
-DROP TABLE IF EXISTS `access_list`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `access_list` (
-  `roles_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `resources_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `access_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `allowed` int(3) NOT NULL,
-  PRIMARY KEY (`roles_name`,`resources_name`,`access_name`),
-  KEY `fk_access_list_2_idx` (`resources_name`),
-  CONSTRAINT `fk_access_list_1` FOREIGN KEY (`roles_name`) REFERENCES `roles` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_access_list_2` FOREIGN KEY (`resources_name`) REFERENCES `resources` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE TABLE IF NOT EXISTS `access_list` (
+  `roles_name` VARCHAR(32) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `resources_name` VARCHAR(32) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `access_name` VARCHAR(32) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `allowed` INT(3) NOT NULL,
+  PRIMARY KEY (`roles_name`, `resources_name`, `access_name`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
 
---
--- Table structure for table `category`
---
 
-DROP TABLE IF EXISTS `category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `category` (
-  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='contains product categories, e.g., dairy, meats, etc.';
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- -----------------------------------------------------
+-- Table `categories`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `categories` ;
 
---
--- Table structure for table `configuration`
---
-
-DROP TABLE IF EXISTS `configuration`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `configuration` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `key` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `value` text COLLATE utf8_unicode_ci,
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `parent_id` INT UNSIGNED NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `key_UNIQUE` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT `fk_categories_categories`
+    FOREIGN KEY (`parent_id`)
+    REFERENCES `categories` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
 
---
--- Table structure for table `customer`
---
+CREATE INDEX `fk_categories_1_idx` ON `categories` (`parent_id` ASC);
 
-DROP TABLE IF EXISTS `customer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customer` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `phone` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `city_region` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
-  `cc_number` varchar(19) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='maintains customer details';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `customer_order`
---
+-- -----------------------------------------------------
+-- Table `configuration`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `configuration` ;
 
-DROP TABLE IF EXISTS `customer_order`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customer_order` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `amount` decimal(6,2) NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `confirmation_number` int(10) unsigned NOT NULL,
-  `customer_id` int(10) unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `configuration` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `key` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
+  `value` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+CREATE UNIQUE INDEX `key_UNIQUE` ON `configuration` (`key` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `roles` ;
+
+CREATE TABLE IF NOT EXISTS `roles` (
+  `name` VARCHAR(32) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `description` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
+  PRIMARY KEY (`name`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `users`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `users` ;
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `roles_name` VARCHAR(32) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `username` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `password` VARCHAR(256) NOT NULL,
+  `email` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `fk_customer_order_customer` (`customer_id`),
-  CONSTRAINT `fk_customer_order_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='maintains customer order details';
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT `fk_users_roles`
+    FOREIGN KEY (`roles_name`)
+    REFERENCES `roles` (`name`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
 
---
--- Table structure for table `ordered_product`
---
+CREATE INDEX `fk_users_roles1_idx` ON `users` (`roles_name` ASC);
 
-DROP TABLE IF EXISTS `ordered_product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ordered_product` (
-  `customer_order_id` int(10) unsigned NOT NULL,
-  `product_id` int(10) unsigned NOT NULL,
-  `quantity` smallint(5) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`customer_order_id`,`product_id`),
-  KEY `fk_ordered_product_customer_order` (`customer_order_id`),
-  KEY `fk_ordered_product_product` (`product_id`),
-  CONSTRAINT `fk_ordered_product_customer_order` FOREIGN KEY (`customer_order_id`) REFERENCES `customer_order` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ordered_product_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `product`
---
+-- -----------------------------------------------------
+-- Table `orders`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `orders` ;
 
-DROP TABLE IF EXISTS `product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `product` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `price` decimal(5,2) NOT NULL,
-  `description` tinytext COLLATE utf8_unicode_ci,
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `category_id` tinyint(3) unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `users_id` INT UNSIGNED NOT NULL,
+  `billing_address_id` INT UNSIGNED NOT NULL,
+  `shipping_address_id` INT UNSIGNED NOT NULL,
+  `shipping_and_handling` DECIMAL(6,2) NOT NULL,
+  `subtotal` DECIMAL(6,2) NOT NULL,
+  `grand_total` DECIMAL(6,2) NOT NULL,
+  `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order_status` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_product_category` (`category_id`),
-  CONSTRAINT `fk_product_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='contains product details';
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT `fk_orders_users`
+    FOREIGN KEY (`users_id`)
+    REFERENCES `users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
 
---
--- Table structure for table `resources`
---
+CREATE INDEX `idx_orders_users` ON `orders` (`users_id` ASC);
 
-DROP TABLE IF EXISTS `resources`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `resources` (
-  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=ucs2;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `resources_accesses`
---
+-- -----------------------------------------------------
+-- Table `products`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `products` ;
 
-DROP TABLE IF EXISTS `resources_accesses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `resources_accesses` (
-  `resources_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `access_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`resources_name`,`access_name`),
-  KEY `fk_resources_accesses_2_idx` (`access_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `price` DECIMAL(5,2) NOT NULL,
+  `description` TINYTEXT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
+  `categories_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_product_category`
+    FOREIGN KEY (`categories_id`)
+    REFERENCES `categories` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
 
---
--- Table structure for table `roles`
---
+CREATE INDEX `idx_product_category` ON `products` (`categories_id` ASC);
 
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roles` (
-  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `roles_inherits`
---
+-- -----------------------------------------------------
+-- Table `order_items`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `order_items` ;
 
-DROP TABLE IF EXISTS `roles_inherits`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roles_inherits` (
-  `roles_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `roles_inherit` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`roles_name`,`roles_inherit`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE TABLE IF NOT EXISTS `order_items` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `orders_id` INT UNSIGNED NOT NULL,
+  `products_id` INT UNSIGNED NOT NULL,
+  `quantity` INT UNSIGNED NOT NULL DEFAULT '1',
+  `line_total` DECIMAL(6,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_order_items_order`
+    FOREIGN KEY (`orders_id`)
+    REFERENCES `orders` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_items_products`
+    FOREIGN KEY (`products_id`)
+    REFERENCES `products` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
 
---
--- Dumping routines for database 'peregrine'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+CREATE INDEX `idx_ordered_product_customer_order` ON `order_items` (`orders_id` ASC);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+CREATE INDEX `idx_order_items_products` ON `order_items` (`products_id` ASC);
 
--- Dump completed on 2014-05-31 17:09:18
+
+-- -----------------------------------------------------
+-- Table `resources`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `resources` ;
+
+CREATE TABLE IF NOT EXISTS `resources` (
+  `name` VARCHAR(32) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `description` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
+  PRIMARY KEY (`name`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = ucs2;
+
+
+-- -----------------------------------------------------
+-- Table `resources_accesses`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `resources_accesses` ;
+
+CREATE TABLE IF NOT EXISTS `resources_accesses` (
+  `resources_name` VARCHAR(32) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `access_name` VARCHAR(32) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`resources_name`, `access_name`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `roles_inherits`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `roles_inherits` ;
+
+CREATE TABLE IF NOT EXISTS `roles_inherits` (
+  `roles_name` VARCHAR(32) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `roles_inherit` VARCHAR(32) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`roles_name`, `roles_inherit`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `invoices`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `invoices` ;
+
+CREATE TABLE IF NOT EXISTS `invoices` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `orders_id` INT UNSIGNED NOT NULL,
+  `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_invoices_orders`
+    FOREIGN KEY (`orders_id`)
+    REFERENCES `orders` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_invoices_orders1_idx` ON `invoices` (`orders_id` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `shipping_methods`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shipping_methods` ;
+
+CREATE TABLE IF NOT EXISTS `shipping_methods` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `shipments`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shipments` ;
+
+CREATE TABLE IF NOT EXISTS `shipments` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `orders_id` INT UNSIGNED NOT NULL,
+  `invoices_id` INT UNSIGNED NOT NULL,
+  `shipping_methods_id` INT UNSIGNED NOT NULL,
+  `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tracking_code` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_shipments_orders`
+    FOREIGN KEY (`orders_id`)
+    REFERENCES `orders` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shipments_invoices`
+    FOREIGN KEY (`invoices_id`)
+    REFERENCES `invoices` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shipments_shipping_methods`
+    FOREIGN KEY (`shipping_methods_id`)
+    REFERENCES `shipping_methods` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_shipments_1_idx` ON `shipments` (`orders_id` ASC);
+
+CREATE INDEX `fk_shipments_invoices1_idx` ON `shipments` (`invoices_id` ASC);
+
+CREATE INDEX `fk_shipments_shipping_methods1_idx` ON `shipments` (`shipping_methods_id` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `shipment_items`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shipment_items` ;
+
+CREATE TABLE IF NOT EXISTS `shipment_items` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `shipments_id` INT UNSIGNED NOT NULL,
+  `order_items_id` INT NOT NULL,
+  `quantity` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_shipment_items_shipments`
+    FOREIGN KEY (`shipments_id`)
+    REFERENCES `shipments` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shipment_items_order_items`
+    FOREIGN KEY (`order_items_id`)
+    REFERENCES `order_items` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_shipment_items_shipments1_idx` ON `shipment_items` (`shipments_id` ASC);
+
+CREATE INDEX `fk_shipment_items_order_items1_idx` ON `shipment_items` (`order_items_id` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `user_addresses`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_addresses` ;
+
+CREATE TABLE IF NOT EXISTS `user_addresses` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `users_id` INT UNSIGNED NOT NULL,
+  `user_address_type` VARCHAR(45) NOT NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `address1` VARCHAR(45) NULL,
+  `address2` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  `state` VARCHAR(45) NULL,
+  `postal_code` VARCHAR(45) NULL,
+  `country` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_user_addresses_users`
+    FOREIGN KEY (`users_id`)
+    REFERENCES `users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_user_addresses_1_idx` ON `user_addresses` (`users_id` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `shipping_rates`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shipping_rates` ;
+
+CREATE TABLE IF NOT EXISTS `shipping_rates` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `shipping_methods_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_shipping_rates_shipping_methods`
+    FOREIGN KEY (`shipping_methods_id`)
+    REFERENCES `shipping_methods` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_shipping_rates_shipping_methods1_idx` ON `shipping_rates` (`shipping_methods_id` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `payment_methods`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `payment_methods` ;
+
+CREATE TABLE IF NOT EXISTS `payment_methods` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `payments`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `payments` ;
+
+CREATE TABLE IF NOT EXISTS `payments` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `invoices_id` INT UNSIGNED NOT NULL,
+  `payment_methods_id` INT UNSIGNED NOT NULL,
+  `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_payments_payment_methods`
+    FOREIGN KEY (`payment_methods_id`)
+    REFERENCES `payment_methods` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_payments_invoices`
+    FOREIGN KEY (`invoices_id`)
+    REFERENCES `invoices` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_payments_payment_methods1_idx` ON `payments` (`payment_methods_id` ASC);
+
+CREATE INDEX `fk_payments_invoices1_idx` ON `payments` (`invoices_id` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `pages`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pages` ;
+
+CREATE TABLE IF NOT EXISTS `pages` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(256) NOT NULL,
+  `body` VARCHAR(45) NOT NULL,
+  `slug` VARCHAR(256) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `id_UNIQUE` ON `pages` (`id` ASC);
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
