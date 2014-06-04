@@ -100,6 +100,18 @@ CREATE INDEX `fk_users_roles1_idx` ON `users` (`roles_name` ASC);
 
 
 -- -----------------------------------------------------
+-- Table `order_statuses`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `order_statuses` ;
+
+CREATE TABLE IF NOT EXISTS `order_statuses` (
+  `id` INT NOT NULL,
+  `status` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `orders`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `orders` ;
@@ -107,17 +119,22 @@ DROP TABLE IF EXISTS `orders` ;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `users_id` INT UNSIGNED NOT NULL,
+  `order_statuses_id` INT NOT NULL,
   `billing_address_id` INT UNSIGNED NOT NULL,
   `shipping_address_id` INT UNSIGNED NOT NULL,
   `shipping_and_handling` DECIMAL(6,2) NOT NULL,
   `subtotal` DECIMAL(6,2) NOT NULL,
   `grand_total` DECIMAL(6,2) NOT NULL,
   `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `order_status` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_orders_users`
     FOREIGN KEY (`users_id`)
     REFERENCES `users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orders_order_statuses1`
+    FOREIGN KEY (`order_statuses_id`)
+    REFERENCES `order_statuses` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -125,6 +142,8 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 CREATE INDEX `idx_orders_users` ON `orders` (`users_id` ASC);
+
+CREATE INDEX `fk_orders_order_statuses1_idx` ON `orders` (`order_statuses_id` ASC);
 
 
 -- -----------------------------------------------------
@@ -192,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `resources` (
   `description` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
   PRIMARY KEY (`name`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = ucs2;
 
 
 -- -----------------------------------------------------
@@ -224,102 +243,6 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `invoices`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `invoices` ;
-
-CREATE TABLE IF NOT EXISTS `invoices` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `orders_id` INT UNSIGNED NOT NULL,
-  `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_invoices_orders`
-    FOREIGN KEY (`orders_id`)
-    REFERENCES `orders` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX `fk_invoices_orders1_idx` ON `invoices` (`orders_id` ASC);
-
-
--- -----------------------------------------------------
--- Table `shipping_methods`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `shipping_methods` ;
-
-CREATE TABLE IF NOT EXISTS `shipping_methods` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `shipments`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `shipments` ;
-
-CREATE TABLE IF NOT EXISTS `shipments` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `orders_id` INT UNSIGNED NOT NULL,
-  `invoices_id` INT UNSIGNED NOT NULL,
-  `shipping_methods_id` INT UNSIGNED NOT NULL,
-  `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `tracking_code` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_shipments_orders`
-    FOREIGN KEY (`orders_id`)
-    REFERENCES `orders` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_shipments_invoices`
-    FOREIGN KEY (`invoices_id`)
-    REFERENCES `invoices` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_shipments_shipping_methods`
-    FOREIGN KEY (`shipping_methods_id`)
-    REFERENCES `shipping_methods` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX `fk_shipments_1_idx` ON `shipments` (`orders_id` ASC);
-
-CREATE INDEX `fk_shipments_invoices1_idx` ON `shipments` (`invoices_id` ASC);
-
-CREATE INDEX `fk_shipments_shipping_methods1_idx` ON `shipments` (`shipping_methods_id` ASC);
-
-
--- -----------------------------------------------------
--- Table `shipment_items`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `shipment_items` ;
-
-CREATE TABLE IF NOT EXISTS `shipment_items` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `shipments_id` INT UNSIGNED NOT NULL,
-  `order_items_id` INT NOT NULL,
-  `quantity` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_shipment_items_shipments`
-    FOREIGN KEY (`shipments_id`)
-    REFERENCES `shipments` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_shipment_items_order_items`
-    FOREIGN KEY (`order_items_id`)
-    REFERENCES `order_items` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX `fk_shipment_items_shipments1_idx` ON `shipment_items` (`shipments_id` ASC);
-
-CREATE INDEX `fk_shipment_items_order_items1_idx` ON `shipment_items` (`order_items_id` ASC);
-
-
--- -----------------------------------------------------
 -- Table `user_addresses`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `user_addresses` ;
@@ -345,64 +268,6 @@ CREATE TABLE IF NOT EXISTS `user_addresses` (
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_user_addresses_1_idx` ON `user_addresses` (`users_id` ASC);
-
-
--- -----------------------------------------------------
--- Table `shipping_rates`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `shipping_rates` ;
-
-CREATE TABLE IF NOT EXISTS `shipping_rates` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `shipping_methods_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_shipping_rates_shipping_methods`
-    FOREIGN KEY (`shipping_methods_id`)
-    REFERENCES `shipping_methods` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX `fk_shipping_rates_shipping_methods1_idx` ON `shipping_rates` (`shipping_methods_id` ASC);
-
-
--- -----------------------------------------------------
--- Table `payment_methods`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `payment_methods` ;
-
-CREATE TABLE IF NOT EXISTS `payment_methods` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `payments`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `payments` ;
-
-CREATE TABLE IF NOT EXISTS `payments` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `invoices_id` INT UNSIGNED NOT NULL,
-  `payment_methods_id` INT UNSIGNED NOT NULL,
-  `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_payments_payment_methods`
-    FOREIGN KEY (`payment_methods_id`)
-    REFERENCES `payment_methods` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_payments_invoices`
-    FOREIGN KEY (`invoices_id`)
-    REFERENCES `invoices` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX `fk_payments_payment_methods1_idx` ON `payments` (`payment_methods_id` ASC);
-
-CREATE INDEX `fk_payments_invoices1_idx` ON `payments` (`invoices_id` ASC);
 
 
 -- -----------------------------------------------------
