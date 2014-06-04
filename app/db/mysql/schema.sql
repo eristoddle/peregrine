@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `resources` (
   `description` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
   PRIMARY KEY (`name`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = ucs2;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
