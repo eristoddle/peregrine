@@ -1,20 +1,10 @@
 <?php
 namespace Peregrine\Application\Models;
+
 use Peregrine\Application\Models\ApplicationModel;
 
-class OrderStatuses extends ApplicationModel
-{
-
-    /**
-     *
-     * @var integer
-     */
+class OrderStatuses extends ApplicationModel {
     public $id;
-
-    /**
-     *
-     * @var string
-     */
     public $status;
 
 }

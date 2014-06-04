@@ -1,32 +1,12 @@
 <?php
 namespace Peregrine\Application\Models;
+
 use Peregrine\Application\Models\ApplicationModel;
 
-class Payments extends ApplicationModel
-{
-
-    /**
-     *
-     * @var integer
-     */
+class Payments extends ApplicationModel {
     public $id;
-
-    /**
-     *
-     * @var integer
-     */
     public $invoices_id;
-
-    /**
-     *
-     * @var integer
-     */
     public $payment_methods_id;
-
-    /**
-     *
-     * @var string
-     */
     public $date_created;
 
 }
