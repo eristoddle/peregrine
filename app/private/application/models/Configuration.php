@@ -1,6 +1,5 @@
 <?php
 namespace Peregrine\Application\Models;
-
 use Peregrine\Application\Models\ApplicationModel;
 
 class Configuration extends ApplicationModel {
