@@ -10,4 +10,8 @@ class OrderItems extends ApplicationModel {
     public $quantity;
     public $line_total;
 
+    public function initialize(){
+        $this->belongsTo("orders_id", "Orders", "id");
+        $this->belongsTo("products_id", "Products", "id");
+    }
 }

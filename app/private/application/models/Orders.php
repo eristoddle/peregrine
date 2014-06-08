@@ -13,4 +13,11 @@ class Orders extends ApplicationModel {
     public $grand_total;
     public $date_created;
 
+    public function initialize(){
+        $this->belongsTo("users_id", "Users", "id");
+        $this->belongsTo("order_statuses_id", "OrderStatuses", "id");
+        $this->belongsTo("billing_address_id", "UserAddresses", "id");
+        $this->belongsTo("shipping_address_id", "UserAddresses", "id");
+        $this->hasMany("id", "OrderItems", "orders_id");
+    }
 }

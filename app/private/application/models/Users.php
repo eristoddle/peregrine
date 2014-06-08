@@ -12,18 +12,23 @@ class Users extends ApplicationModel {
     public $email;
     public $date_created;
 
-    public function validation() {
-        $this->validate(
-            new Email(
-                array(
-                    'field' => 'email',
-                    'required' => true,
-                )
-            )
-        );
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
+    public function initialize(){
+        $this->hasMany("id", "UserAddresses", "users_id");
+        $this->hasMany("id", "Orders", "users_id");
     }
+
+    // public function validation() {
+    //     $this->validate(
+    //         new Email(
+    //             array(
+    //                 'field' => 'email',
+    //                 'required' => true,
+    //             )
+    //         )
+    //     );
+    //     if ($this->validationHasFailed() == true) {
+    //         return false;
+    //     }
+    // }
 
 }

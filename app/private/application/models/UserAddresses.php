@@ -16,4 +16,9 @@ class UserAddresses extends ApplicationModel {
     public $postal_code;
     public $country;
 
+    public function initialize(){
+        $this->belongsTo("users_id", "Users", "id");
+        $this->hasMany("id", "Orders", "billing_address_id");
+        $this->hasMany("id", "Orders", "shipping_address_id");
+    }
 }
