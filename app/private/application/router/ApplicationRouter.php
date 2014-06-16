@@ -40,5 +40,12 @@ class ApplicationRouter extends Router {
                 'params' => 2,
             )
         );
+
+        $this->add(
+            "/:module",
+            array(
+                'module' => 1
+            )
+        );
     }
 }

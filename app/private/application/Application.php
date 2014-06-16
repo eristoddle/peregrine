@@ -1,5 +1,4 @@
 <?php
-
 namespace Peregrine\Application;
 
 use \Phalcon\Mvc\Url as UrlResolver,
@@ -23,8 +22,7 @@ class Application extends \Phalcon\Mvc\Application {
      */
     public function __construct(DiInterface $di) {
         /**
-         * Sets the parent DI and register the app itself as a service,
-         * necessary for redirecting HMVC requests
+         * Sets the parent DI and register the app itself as a service
          */
         parent::setDI($di);
         $di->set('app', $this);

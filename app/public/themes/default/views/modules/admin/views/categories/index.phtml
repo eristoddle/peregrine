@@ -1,0 +1,24 @@
+<table class="table table-striped">
+    <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Parent Id</th>
+        <th>Products</th>
+        <th>Edit</th>
+    </thead>
+    <tbody>
+    <?php foreach ($categories as $category): ?>
+        <tr>
+            <td><?php echo $category->id; ?></td>
+            <td><?php echo $category->name; ?></td>
+            <td><?php echo $category->parent_id; ?></td>
+            <td><?php echo $this->tag->linkTo('admin/products/viewcategory/'. $category->id, 'View Products') ?></td>
+            <td>
+                <?php echo $this->tag->linkTo('admin/categories/edit/'. $category->id, 'Edit') ?> |
+                <?php echo $this->tag->linkTo('admin/categories/delete/'. $category->id, 'Delete') ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php echo $this->tag->linkTo(array('admin/categories/new/', 'New Category', 'class' => 'btn btn-primary')); ?>

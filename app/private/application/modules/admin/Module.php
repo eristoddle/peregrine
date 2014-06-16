@@ -1,6 +1,6 @@
 <?php
 
-namespace Peregrine\Main;
+namespace Peregrine\Admin;
 
 use \Phalcon\Loader,
     \Phalcon\DI,
@@ -14,7 +14,7 @@ use \Phalcon\Loader,
 
 /**
  * Application module definition for multi module application
- * Defining the Main module
+ * Defining the Admin module
  */
 class Module extends ApplicationModule {
     /**
@@ -27,8 +27,8 @@ class Module extends ApplicationModule {
         $loader = new Loader();
         $loader->registerNamespaces(
             array(
-                'Peregrine\Main' => __DIR__,
-                'Peregrine\Main\Controllers' => __DIR__ . '/controllers/'
+                'Peregrine\Admin' => __DIR__,
+                'Peregrine\Admin\Controllers' => __DIR__ . '/controllers/'
             ), true
         )
             ->register();
@@ -49,9 +49,9 @@ class Module extends ApplicationModule {
         $loader = new Loader();
         $loader->registerNamespaces(
             array(
-                'Peregrine\Main' => __DIR__,
-                'Peregrine\Main\Controllers' => __DIR__ . '/controllers/',
-                'Peregrine\Main\Models' => __DIR__ . '/models/',
+                'Peregrine\Admin' => __DIR__,
+                'Peregrine\Admin\Controllers' => __DIR__ . '/controllers/',
+                'Peregrine\Admin\Models' => __DIR__ . '/models/',
             ), true
         )
             ->register();
@@ -74,10 +74,10 @@ class Module extends ApplicationModule {
         $di->set(
             'view', function () {
                 $view = new View();
-                $view->setViewsDir(__DIR__ . '/../../../../public/themes/default/views/modules/main/views')
+                $view->setViewsDir(__DIR__ . '/../../../../public/themes/default/views/modules/admin/views')
                     ->setLayoutsDir('../../../layouts/')
                     ->setPartialsDir('../../../partials/')
-                    ->setTemplateAfter('main')
+                    ->setTemplateAfter('admin')
                     ->registerEngines(array('.phtml' => 'Phalcon\Mvc\View\Engine\Php'));
                 return $view;
             }
@@ -101,7 +101,7 @@ class Module extends ApplicationModule {
             'dispatcher', function () use ($di) {
                 $dispatcher = new Dispatcher();
                 $dispatcher->setEventsManager($di->getShared('eventsManager'));
-                $dispatcher->setDefaultNamespace('Peregrine\Main\\');
+                $dispatcher->setDefaultNamespace('Peregrine\Admin\\');
                 return $dispatcher;
             }
         );
