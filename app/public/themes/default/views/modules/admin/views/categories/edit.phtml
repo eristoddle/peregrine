@@ -1,4 +1,4 @@
-<h3>Edit Category</h3>
+<h3><?php echo ucfirst($this->dispatcher->getActionName()); ?> Category</h3>
 <?php echo $this->tag->form("admin/categories/save"); ?>
 <?php echo $this->tag->hiddenField(array("id")); ?>
 <label for="parent_id">Parent Category</label>

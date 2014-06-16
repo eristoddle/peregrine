@@ -9,6 +9,7 @@ use Phalcon\Mvc\Controller;
  */
 class ApplicationController extends Controller {
     public function initialize(){
+    	$this->tag->setDoctype(\Phalcon\Tag::HTML5);
         $this->tag->setTitle("Peregrine");
         $this->view->header = "Peregrine";
         $this->view->subHeader = "";

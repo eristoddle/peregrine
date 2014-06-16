@@ -111,6 +111,16 @@ class Application extends \Phalcon\Mvc\Application {
             'modelsMetadata',
             '\Phalcon\Mvc\Model\Metadata\\' . $config->application->models->metadata->adapter
         );
+
+        //Register the flash service with custom CSS classes
+        $this->di->set('flash', function(){
+            $flash = new \Phalcon\Flash\Session(array(
+                'error' => 'alert alert-danger',
+                'success' => 'alert alert-success',
+                'notice' => 'alert alert-info',
+            ));
+            return $flash;
+        });
     }
 
     /**

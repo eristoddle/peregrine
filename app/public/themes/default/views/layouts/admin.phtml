@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php echo $this->tag->getDocType(); ?>
 <html>
 <head>
     <meta charset="utf-8">
@@ -24,6 +24,7 @@
             </div>
             <div class="col-sm-9 main">
                 <div class="row">
+                    <?php echo $this->flash->output(); ?>
                     <?php echo $this->getContent(); ?>
                 </div>
                 <div class="row">
