@@ -1,0 +1,25 @@
+<h3><?php echo ucfirst($this->dispatcher->getActionName()); ?> Product</h3>
+<?php echo $this->tag->form("admin/products/save"); ?>
+<?php echo $this->tag->hiddenField(array("id")); ?>
+<label for="categories_id">Category</label>
+<?php
+echo $this->tag->select(
+    array(
+        "categories_id",
+        $categories,
+        "using" => array("id", "name"),
+        "useEmpty" => true,
+        'emptyText' => 'None',
+        'emptyValue' => "",
+        "class" => "form-control"
+    )
+);
+?>
+<label for="name">Name</label>
+<?php echo $this->tag->textField(array("name", "class" => "form-control")); ?>
+<label for="description">Description</label>
+<?php echo $this->tag->textField(array("description", "class" => "form-control")); ?>
+<label for="price">Price</label>
+<?php echo $this->tag->textField(array("price", "class" => "form-control")); ?>
+<?php echo $this->tag->submitButton(array("Save", "class" => "btn btn-primary")); ?>
+<?php echo $this->tag->endForm(); ?>

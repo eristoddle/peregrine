@@ -79,5 +79,4 @@ class CategoriesController extends ModuleController {
             )
         );
     }
-
 }
