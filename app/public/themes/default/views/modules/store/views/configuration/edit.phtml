@@ -1,0 +1,9 @@
+<h3><?php echo ucfirst($this->dispatcher->getActionName()); ?> Configuration Set</h3>
+<?php echo $this->tag->form("admin/configuration/save"); ?>
+<?php echo $this->tag->hiddenField(array("id")); ?>
+<label for="key">Key</label>
+<?php echo $this->tag->textField(array("key", "class" => "form-control")); ?>
+<label for="value">Value</label>
+<?php echo $this->tag->textField(array("value", "class" => "form-control")); ?>
+<?php echo $this->tag->submitButton(array("Save", "class" => "btn btn-primary")); ?>
+<?php echo $this->tag->endForm(); ?>
