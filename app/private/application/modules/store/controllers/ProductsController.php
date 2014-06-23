@@ -19,6 +19,7 @@ class ProductsController extends ModuleController {
 
 	public function viewAction($id){
         $this->view->product = Models\Products::findFirstById($id);
+        $this->view->images = $this->view->product->getImages();
         if(!$this->view->product){
             $this->flash->error("Product was not found.");
             $this->goHome();

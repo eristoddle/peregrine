@@ -1,1 +1,9 @@
-<h2>Peregrine Home</h2>
+<div class="container">
+    <div class="row">
+    <?php
+        foreach ($products as $product){
+            $this->partial("main/product", array('product' => $product));
+        }
+    ?>
+    </div>
+</div>

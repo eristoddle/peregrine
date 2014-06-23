@@ -20,7 +20,6 @@ class ProductsController extends ModuleController {
 
     public function newAction() {
         $this->view->categories = Models\Categories::find();
-        $this->view->products = Models\Products::find();
         $this->view->pick("products/edit");
     }
 
