@@ -8,4 +8,8 @@ return array(
         'className' => '\Peregrine\Admin\Module',
         'path' => __DIR__ . '/../application/modules/admin/Module.php',
     ),
+    'store' => array(
+        'className' => '\Peregrine\Store\Module',
+        'path' => __DIR__ . '/../application/modules/store/Module.php',
+    )
 );

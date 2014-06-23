@@ -1,20 +1,22 @@
 <?php $this->partial("head") ?>
 <body>
-    <div class="container">
-        <div class="row">
-            <?php $this->partial("header") ?>
+    <div class="jumbotron">
+        <div class="container">
+            <h1><?php echo $header; ?></h1>
         </div>
+    </div>
+    <div class="container">
         <div class="row">
             <div class="col-sm-3 sidebar">
                 <div class="well">
-                    <?php $this->partial("adminsidebar") ?>
+                    <?php $this->partial("main/sidebar") ?>
                 </div>
             </div>
             <div class="col-sm-9 main">
                 <div class="row">
                     <?php echo $this->flash->output(); ?>
                     <?php echo $this->getContent(); ?>
-                </div>s
+                </div>
             </div>
         </div>
     </div>
@@ -23,7 +25,7 @@
             <?php $this->partial("footer") ?>    
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="/themes/default/js/bootstrap.min.js"></script>
+    <?php echo Phalcon\Tag::javascriptInclude("https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js", false); ?>
+    <?php echo Phalcon\Tag::javascriptInclude("themes/default/js/bootstrap.min.js"); ?>
 </body>
 </html>

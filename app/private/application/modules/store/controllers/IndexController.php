@@ -1,10 +1,10 @@
 <?php
-namespace Peregrine\Admin\Controllers;
-use \Peregrine\Admin\Controllers\ModuleController,
+namespace Peregrine\Store\Controllers;
+use \Peregrine\Store\Controllers\ModuleController,
 	\Peregrine\Application\Models;
 
 /**
- * Concrete implementation of Admin module controller
+ * Concrete implementation of Store module controller
  */
 class IndexController extends ModuleController {
 	public function indexAction(){

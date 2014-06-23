@@ -17,8 +17,12 @@ return new \Phalcon\Config(array(
         'pluginsDir' => __DIR__ . '/../plugins',
         'helpersDir' => __DIR__ . '/../application/helpers',
         'models' => array(
-        'metadata' => array(
-            'adapter' => 'Memory'
+            'metadata' => array(
+                'adapter' => 'Memory'
+            )
         )
+    ),
+    'peregrine' => array(
+        'productImagesDir' => __DIR__ . '/../../public/media/img'
     )
-)));
+));

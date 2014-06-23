@@ -1,0 +1,9 @@
+<div class="product">
+	<div class="image">
+	</div>
+	<div class="details">
+		<h4 class="title"><?php echo $product->name; ?></h4>
+		<div class="price">$<?php echo $product->price; ?></div>
+		<?php echo $this->tag->linkTo(array('store/products/view/'.$product->id, 'Details', 'class' => 'btn btn-primary')); ?>
+	</div>
+</div>

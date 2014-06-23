@@ -1,30 +1,30 @@
 <?php
 
-namespace Peregrine\Admin;
+namespace Peregrine\Store;
 
 use \Phalcon\Mvc\Router\Group;
 
 /**
- * This class defines routes for the Peregrine\Admin module
- * which will be prefixed with '/admin'
+ * This class defines routes for the Peregrine\Store module
+ * which will be prefixed with '/store'
  */
 class ModuleRoutes extends Group {
     /**
-     * Initialize the router group for the Admin module
+     * Initialize the router group for the Store module
      */
     public function initialize() {
         /**
-         * In the URI this module is prefixed by '/admin'
+         * In the URI this module is prefixed by '/store'
          */
-        $this->setPrefix('/admin');
+        $this->setPrefix('/store');
 
         /**
          * Configure the instance
          */
         $this->setPaths(
             array(
-                'module' => 'admin',
-                'namespace' => 'Peregrine\Admin\Controllers\\',
+                'module' => 'store',
+                'namespace' => 'Peregrine\Store\Controllers\\',
                 'controller' => 'index',
                 'action' => 'index'
             )
@@ -52,7 +52,7 @@ class ModuleRoutes extends Group {
         );
 
         /**
-         * Add all Peregrine\Admin specific routes here
+         * Add all Peregrine\Store specific routes here
          */
     }
 }

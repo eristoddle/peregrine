@@ -1,25 +1,43 @@
 <h3><?php echo ucfirst($this->dispatcher->getActionName()); ?> Product</h3>
 <?php echo $this->tag->form("admin/products/save"); ?>
-<?php echo $this->tag->hiddenField(array("id")); ?>
-<label for="categories_id">Category</label>
-<?php
-echo $this->tag->select(
-    array(
-        "categories_id",
-        $categories,
-        "using" => array("id", "name"),
-        "useEmpty" => true,
-        'emptyText' => 'None',
-        'emptyValue' => "",
-        "class" => "form-control"
-    )
-);
+    <?php echo $this->tag->hiddenField(array("id")); ?>
+    <label for="categories_id">Category</label>
+    <?php
+    echo $this->tag->select(
+        array(
+            "categories_id",
+            $categories,
+            "using" => array("id", "name"),
+            "useEmpty" => true,
+            'emptyText' => 'None',
+            'emptyValue' => "",
+            "class" => "form-control"
+        )
+    );
+    ?>
+    <label for="name">Name</label>
+    <?php echo $this->tag->textField(array("name", "class" => "form-control")); ?>
+    <label for="description">Description</label>
+    <?php echo $this->tag->textField(array("description", "class" => "form-control")); ?>
+    <label for="price">Price</label>
+    <?php
+    echo $this->tag->textField(array("price", "class" => "form-control"));
+    ?>
+    <hr>
+    <?php
+    echo $this->tag->submitButton(array("Save", "class" => "btn btn-primary"));
+echo $this->tag->endForm();
 ?>
-<label for="name">Name</label>
-<?php echo $this->tag->textField(array("name", "class" => "form-control")); ?>
-<label for="description">Description</label>
-<?php echo $this->tag->textField(array("description", "class" => "form-control")); ?>
-<label for="price">Price</label>
-<?php echo $this->tag->textField(array("price", "class" => "form-control")); ?>
-<?php echo $this->tag->submitButton(array("Save", "class" => "btn btn-primary")); ?>
+<h4>Product Images</h4>
+    <?php
+    foreach($images as $k => $v) {
+        echo $this->tag->image(array($v, "class" => "img-thumbnail", "width" => 250));
+    }
+    ?>
+<hr>
+<?php echo $this->tag->form(array("admin/products/upload", "enctype" => "multipart/form-data")); ?>
+    <?php echo $this->tag->hiddenField(array("id")); ?>
+    <?php echo $this->tag->fileField(array("files[]", "multiple" => true)); ?>
+    <br>
+    <?php echo $this->tag->submitButton(array("Upload", "class" => "btn btn-primary")); ?>
 <?php echo $this->tag->endForm(); ?>
