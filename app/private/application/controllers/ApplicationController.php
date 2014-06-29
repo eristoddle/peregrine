@@ -13,6 +13,7 @@ class ApplicationController extends Controller {
         $this->tag->setTitle("Peregrine");
         $this->view->header = "Peregrine";
         $this->view->subHeader = "";
+        $this->config = $this->di->get('config')->peregrine;
     }
 	
 }

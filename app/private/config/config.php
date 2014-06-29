@@ -23,6 +23,7 @@ return new \Phalcon\Config(array(
         )
     ),
     'peregrine' => array(
-        'productImagesDir' => __DIR__ . '/../../public/media/img'
+        'productImagesDir' => __DIR__ . '/../../public/media/img',
+        'productImagesWeb' => 'media/img'
     )
 ));

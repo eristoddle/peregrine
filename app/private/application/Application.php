@@ -121,6 +121,13 @@ class Application extends \Phalcon\Mvc\Application {
             ));
             return $flash;
         });
+
+        //Load configuration from database table
+        $configuration = Models\Configuration::find();
+        foreach($configuration as $k => $v){
+            $config->peregrine[$v->key] = $v->value;
+        }
+        $this->di->set('config', $config);
     }
 
     /**

@@ -8,7 +8,7 @@
 	</div>
 	<div class="images">
         <?php
-        foreach($images as $k => $v) {
+        foreach($product->images as $k => $v) {
             echo $this->tag->image(array($v, "class" => "img-thumbnail", "width" => 250));
         }
         ?>

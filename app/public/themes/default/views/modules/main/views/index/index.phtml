@@ -1,9 +1,14 @@
-<div class="container">
-    <div class="row">
-    <?php
-        foreach ($products as $product){
-            $this->partial("main/product", array('product' => $product));
-        }
-    ?>
-    </div>
+<div class="row">
+<?php
+    foreach ($page->items as $product){
+        $this->partial("main/product", array('product' => $product));
+    }
+?>
+</div>
+<div class="row">
+    <a href="/store/products/search">First</a>
+    <a href="/store/products/search?page=<?= $page->before; ?>">Previous</a>
+    <a href="/store/products/search?page=<?= $page->next; ?>">Next</a>
+    <a href="/store/products/search?page=<?= $page->last; ?>">Last</a>
+    <?php echo "You are in page ", $page->current, " of ", $page->total_pages; ?>
 </div>

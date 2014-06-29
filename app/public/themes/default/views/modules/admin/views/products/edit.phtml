@@ -30,8 +30,8 @@ echo $this->tag->endForm();
 ?>
 <h4>Product Images</h4>
     <?php
-    if(isset($images)){
-        foreach($images as $k => $v) {
+    if(isset($product)){
+        foreach($product->images as $k => $v) {
             echo $this->tag->image(array($v, "class" => "img-thumbnail", "width" => 250));
         }
     }

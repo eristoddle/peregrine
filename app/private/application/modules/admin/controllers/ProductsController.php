@@ -30,7 +30,7 @@ class ProductsController extends ModuleController {
         $this->view->categories = Models\Categories::find();
         $product = Models\Products::findFirstById($id);
         if ($product) {
-            $this->view->images = $product->getImages();
+            $this->view->product = $product;
             $this->tag->setDefaults(
                 array(
                     "id" => $product->id,
@@ -72,25 +72,16 @@ class ProductsController extends ModuleController {
             $this->flash->error("Product was not found.");
         }
         $this->goHome();
-        //TODO: Delete images
     }
 
     public function uploadAction() {
         if ($this->request->hasFiles() == true) {
             $id = $this->request->getPost('id');
+            $product = Models\Products::findFirstById($id);
             $uploads = $this->request->getUploadedFiles();
             $isUploaded = false;
-            $config = $this->di->get('config');
-            $dirPath = $config->peregrine->productImagesDir . '/' . $id;
-            if (!is_dir($dirPath)) {
-                if (!mkdir($pathname = $dirPath, $mode = 0777, $recursive = true)) {
-                    $this->flash->error("Unable to create product image directory.");
-                }
-            }
             foreach ($uploads as $upload) {
-                //TODO: Check file type
-                $path = $dirPath . "/" . strtolower($upload->getname());
-                ($upload->moveTo($path)) ? $isUploaded = true : $isUploaded = false;
+                $isUploaded = $product->uploadImage($upload);
             }
             ($isUploaded) ?  $this->flash->success('Images successfully uploaded.')
                 : $this->flash->error('Some error occurred.');
