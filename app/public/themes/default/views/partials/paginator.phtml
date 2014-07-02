@@ -1,0 +1,8 @@
+<div class="row text-center">
+    <ul class="pagination">
+        <li><a href="<?php echo $controller; ?>/search">First</a></li>
+        <li><a href="<?php echo $controller; ?>/search?page=<?= $page->before; ?>">Previous</a></li>
+        <li><a href="<?php echo $controller; ?>/search?page=<?= $page->next; ?>">Next</a></li>
+        <li><a href="<?php echo $controller; ?>/search?page=<?= $page->last; ?>">Last</a></li>
+    </ul>
+</div>

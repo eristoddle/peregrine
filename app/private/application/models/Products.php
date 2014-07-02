@@ -44,6 +44,7 @@ class Products extends ApplicationModel {
         foreach($this->images as $k => $v){
             $this->deleteImage($v);
         }
+        rmdir($this->imagesDir);
     }
 
     public function deleteImage($file){

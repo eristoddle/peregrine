@@ -1,9 +1,5 @@
-<div class="product">
-	<div class="image">
-	</div>
-	<div class="details">
-		<h4 class="title"><?php echo $product->name; ?></h4>
-		<div class="price">$<?php echo $product->price; ?></div>
-		<?php echo $this->tag->linkTo(array('store/products/view/'.$product->id, 'Details', 'class' => 'btn btn-primary')); ?>
-	</div>
-</div>
+<?php echo array_key_exists(0, $product->images) ? $this->tag->image(array($product->images[0], "class" => "img-responsive", "width" => 250)) : ''; ?>
+<h4 class="title"><?php echo $product->name; ?></h4>
+<div class="price">$<?php echo $product->price; ?></div>
+<?php echo $this->tag->linkTo(array('store/products/view/'.$product->id, 'Details', 'class' => 'btn btn-primary')); ?>
+<hr>

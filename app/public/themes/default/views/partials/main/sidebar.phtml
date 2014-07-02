@@ -1,3 +1,48 @@
-<ul class="nav nav-pills nav-stacked">
-
-</ul>
+<div class="panel panel-primary">
+    <div class="panel-heading">Search</div>
+    <div class="panel-body">
+        <?php echo $this->tag->form("store/products/search"); ?>
+        <?php echo $this->tag->textField(array("query", "class" => "form-control")); ?>
+        <?php echo $this->tag->submitButton(array("Search", "class" => "btn btn-primary")); ?>
+        <?php echo $this->tag->endForm(); ?>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">Categories</div>
+    <div class="panel-body">
+        <div class="btn-group-vertical col-xs-12">
+            <?php foreach ($categories as $category):
+                if (array_key_exists('children', $category) && count($category['children']) > 0): ?>
+                    <div class="btn-group">
+                        <button id="btnGroupVerticalDrop1" type="button" class="btn btn-default dropdown-toggle"
+                                data-toggle="dropdown">
+                            <?php echo $category['self']['name']; ?>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop1">
+                            <?php foreach ($category['children'] as $child): ?>
+                                <li>
+                                <?php echo $this->tag->linkTo(
+                                    array(
+                                        'store/products/search?category_id=' . $child['id'], $child['name']
+                                    )
+                                );
+                                ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php
+                else:
+                    echo $this->tag->linkTo(
+                        array(
+                            'store/products/search?category_id=' . $category['self']['id'], $category['self']['name'],
+                            'class' => 'btn btn-default'
+                        )
+                    );
+                endif;
+            endforeach;
+            ?>
+        </div>
+    </div>
+</div>
