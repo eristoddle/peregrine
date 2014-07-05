@@ -1,5 +1,9 @@
 <?php
 return new \Phalcon\Config(array(
+    'peregrine' => array(
+        'productImagesDir' => __DIR__ . '/../../public/media/img',
+        'productImagesWeb' => 'media/img'
+    ),
     'database' => array(
         'adapter' => 'Mysql',
         'host' => 'localhost',
@@ -21,9 +25,5 @@ return new \Phalcon\Config(array(
                 'adapter' => 'Memory'
             )
         )
-    ),
-    'peregrine' => array(
-        'productImagesDir' => __DIR__ . '/../../public/media/img',
-        'productImagesWeb' => 'media/img'
     )
 ));

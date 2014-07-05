@@ -1,11 +1,9 @@
 <?php
-
 namespace Peregrine\Application\Helpers;
 
 use \Phalcon\Tag;
 
 class MetaTag extends Tag {
-
     static public function tag($parameters) {
         if (!is_array($parameters)) {
             $parameters = array($parameters);
@@ -30,5 +28,4 @@ class MetaTag extends Tag {
 
         return $meta;
     }
-
 }

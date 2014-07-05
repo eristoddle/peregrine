@@ -3,9 +3,6 @@ namespace Peregrine\Admin\Controllers;
 use \Peregrine\Admin\Controllers\ModuleController,
 	\Peregrine\Application\Models;
 
-/**
- * Concrete implementation of Admin module controller
- */
 class CategoriesController extends ModuleController {
     public function initialize(){
         parent::initialize();

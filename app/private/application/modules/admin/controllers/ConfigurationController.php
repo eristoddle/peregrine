@@ -3,9 +3,6 @@ namespace Peregrine\Admin\Controllers;
 use \Peregrine\Admin\Controllers\ModuleController,
 	\Peregrine\Application\Models;
 
-/**
- * Concrete implementation of Admin module controller
- */
 class ConfigurationController extends ModuleController {
     public function initialize(){
         parent::initialize();
@@ -17,12 +14,10 @@ class ConfigurationController extends ModuleController {
 	}
 
     public function newAction(){
-        $this->view->configuration = Models\Configuration::find();
         $this->view->pick("configuration/edit");
     }
 
 	public function editAction($id){
-        $this->view->configuration = Models\Configuration::find();
         $configuration = Models\Configuration::findFirstById($id);
         if($configuration){
             $this->tag->setDefaults(

@@ -124,6 +124,9 @@ class Application extends \Phalcon\Mvc\Application {
 
         //Load configuration from database table
         $configuration = Models\Configuration::find();
+        if(!array_key_exists('peregrine', $config)){
+            $config['peregrine'] = array();
+        }
         foreach($configuration as $k => $v){
             $config->peregrine[$v->key] = $v->value;
         }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Peregrine\Application\Controllers;
 
 use Phalcon\Mvc\Controller;
