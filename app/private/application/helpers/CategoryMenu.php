@@ -20,5 +20,4 @@ class CategoryMenu extends Tag {
 
         return $menu;
     }
-
 }
