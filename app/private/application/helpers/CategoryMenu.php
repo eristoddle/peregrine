@@ -7,34 +7,18 @@ use \Phalcon\Tag,
 class CategoryMenu extends Tag {
 
     static public function tag() {
-        $menu = array();
-        $category_ids = array();
         $categories = Categories::find();
-        foreach($categories as $k => $v){
-            $element = array(
-                'id' => $v->id,
-                'name' => $v->name,
-                'parent_id' => $v->parent_id
+        $menu ='<div class="btn-group-vertical col-xs-12">';
+            foreach ($categories as $category){
+            $menu .= Tag::linkTo(array(
+                    'store/products/search?categories_id=' . $category->id, $category->name,
+                    'class' => 'btn btn-default'
+                )
             );
-            if(is_null($v->parent_id) && !in_array($v->id, $category_ids)){
-                $menu[$v->id] = array(
-                    'self' => $element,
-                    'children' => array()
-                );
-            }else if(is_null($v->parent_id) && in_array($v->id, $category_ids)){
-                $menu[$v->id]['self'] = $element;
-            }else if(!in_array($v->parent_id, $category_ids)){
-                $menu[$v->parent_id] = array(
-                    'children' => array($element)
-                );
-                $category_ids[] = $v->parent_id;
-            }else{
-                $menu[$v->parent_id]['children'][] = $element;
             }
-            $category_ids[] = $v->id;
-        }
+        $menu .= '</div>';
 
-        return $meta;
+        return $menu;
     }
 
 }
