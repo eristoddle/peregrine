@@ -5,6 +5,11 @@ use \Peregrine\Admin\Controllers\ModuleController,
 
 class ConfigurationController extends ModuleController {
 
+    public function initialize(){
+        parent::initialize();
+        $this->view->subHeader .= "/Configuration";
+    }
+
 	public function indexAction(){
 		$this->view->configuration = Models\Configuration::find();
 	}
