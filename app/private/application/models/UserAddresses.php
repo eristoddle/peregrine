@@ -15,6 +15,7 @@ class UserAddresses extends ApplicationModel {
     public $state;
     public $postal_code;
     public $country;
+    //TODO: Add default billing address
 
     public function initialize(){
         $this->belongsTo("users_id", "Users", "id");

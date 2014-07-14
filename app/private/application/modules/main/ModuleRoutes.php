@@ -1,12 +1,11 @@
 <?php
-
 namespace Peregrine\Main;
 
 use \Phalcon\Mvc\Router\Group;
 
 class ModuleRoutes extends Group {
     public function initialize() {
-        $this->setPrefix('/main');
+        $this->setPrefix('/');
 
         $this->setPaths(
             array(
@@ -22,6 +21,13 @@ class ModuleRoutes extends Group {
                 'controller' => 1,
                 'action' => 2,
                 'params' => 3
+            )
+        );
+
+        $this->addGet(
+            '/:controller', array(
+                'controller' => 1,
+                'action' => 'index'
             )
         );
     }

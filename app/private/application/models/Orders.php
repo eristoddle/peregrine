@@ -1,7 +1,8 @@
 <?php
 namespace Peregrine\Application\Models;
 
-use Peregrine\Application\Models\ApplicationModel;
+use Peregrine\Application\Models\ApplicationModel,
+    Phalcon\Mvc\Model\Behavior\Timestampable;
 
 class Orders extends ApplicationModel {
     public $id;

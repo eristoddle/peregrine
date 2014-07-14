@@ -60,8 +60,8 @@ class Application extends \Phalcon\Mvc\Application {
                 'Peregrine\Application\Controllers' => $config->application->controllersDir,
                 'Peregrine\Application\Models' => $config->application->modelsDir,
                 'Peregrine\Application\Router' => $config->application->routerDir,
-                'Peregrine\Application\Plugins' => $config->application->pluginsDir,
-                'Peregrine\Application\Helpers' => $config->application->helpersDir
+                'Peregrine\Application\Helpers' => $config->application->helpersDir,
+                'Phalcon' => $config->application->pluginsDir . '/Library/Phalcon',
             ),
             true
         )
@@ -131,6 +131,20 @@ class Application extends \Phalcon\Mvc\Application {
             $config->peregrine[$v->key] = $v->value;
         }
         $this->di->set('config', $config);
+
+        //Add acl
+        $db = $this->di->get('db');
+        $this->di->set('acl', function () use ($db){
+            $acl = new \Phalcon\Acl\Adapter\Database(array(
+                'db' => $db,
+                'roles' => 'roles',
+                'rolesInherits' => 'roles_inherits',
+                'resources' => 'resources',
+                'resourcesAccesses' => 'resources_accesses',
+                'accessList' => 'access_list',
+            ));
+            return $acl;
+        });
     }
 
     /**

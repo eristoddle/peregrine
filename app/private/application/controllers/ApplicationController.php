@@ -9,6 +9,8 @@ class ApplicationController extends Controller {
     	$this->tag->setDoctype(\Phalcon\Tag::HTML5);
         $this->tag->setTitle($this->config->storeName);
         $this->view->header = $this->config->storeName;
-        $this->view->subHeader = "";
+        $this->view->subHeader = ucFirst($this->dispatcher->getModuleName())
+            . "/" . ucFirst($this->dispatcher->getControllerName());
+        $this->acl = $this->di->get('acl');
     }
 }

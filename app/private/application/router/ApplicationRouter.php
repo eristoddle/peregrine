@@ -25,26 +25,7 @@ class ApplicationRouter extends Router {
             array(
                 'module' => 'main',
                 'namespace' => 'Peregrine\Main\Controllers\\',
-                'controller' => 'index',
-                'action' => 'index'
-            )
-        );
-
-        $this->add(
-            "/:action/:params",
-            array(
-                'module' => 'main',
-                'namespace' => 'Peregrine\Main\Controllers\\',
-                'controller' => 'index',
-                'action' => 1,
-                'params' => 2,
-            )
-        );
-
-        $this->add(
-            "/:module",
-            array(
-                'module' => 1
+                'controller' => 'index'
             )
         );
     }

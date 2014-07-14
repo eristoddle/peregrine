@@ -4,11 +4,6 @@ use \Peregrine\Admin\Controllers\ModuleController,
 	\Peregrine\Application\Models;
 
 class CategoriesController extends ModuleController {
-    public function initialize(){
-        parent::initialize();
-        $this->view->subHeader .= "/Categories";
-    }
-
 
 	public function indexAction(){
 		$this->view->categories = Models\Categories::find();

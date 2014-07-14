@@ -16,6 +16,13 @@ class ModuleRoutes extends Group {
             )
         );
 
+        $this->add('', 
+            array(
+                'controller' => 'index',
+                'action' => 'index'
+            )
+        );
+
         $this->add('/:controller', 
             array(
                 'controller' => 1,

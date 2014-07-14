@@ -5,11 +5,6 @@ use \Peregrine\Admin\Controllers\ModuleController,
     \Peregrine\Application\Models;
 
 class ProductsController extends ModuleController {
-    public function initialize() {
-        parent::initialize();
-        $this->view->subHeader .= "/Products";
-    }
-
 
     public function indexAction() {
         $this->view->products = Models\Products::find();

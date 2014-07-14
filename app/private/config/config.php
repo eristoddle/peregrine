@@ -18,7 +18,7 @@ return new \Phalcon\Config(array(
         'controllersDir' => __DIR__ . '/../application/controllers',
         'modelsDir' => __DIR__ . '/../application/models',
         'routerDir' => __DIR__ . '/../application/router',
-        'pluginsDir' => __DIR__ . '/../plugins',
+        'pluginsDir' => __DIR__ . '/../application/plugins',
         'helpersDir' => __DIR__ . '/../application/helpers',
         'models' => array(
             'metadata' => array(
