@@ -1,0 +1,20 @@
+<table class="table table-striped">
+    <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>View</th>
+    </thead>
+    <tbody>
+    <?php foreach ($roles as $role): ?>
+        <tr>
+            <td><?php echo $role->name; ?></td>
+            <td><?php echo $role->description; ?></td>
+            <td>
+                <?php echo $this->tag->linkTo('admin/roles/edit/'. $role->name, 'Edit') ?> |
+                <?php echo $this->tag->linkTo('admin/roles/delete/'. $role->name, 'Delete') ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php echo $this->tag->linkTo(array('admin/roles/new/', 'New role', 'class' => 'btn btn-primary')); ?>

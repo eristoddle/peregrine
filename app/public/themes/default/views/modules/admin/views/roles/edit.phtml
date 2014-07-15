@@ -1,0 +1,26 @@
+<h3><?php echo ucfirst($this->dispatcher->getActionName()); ?> Role</h3>
+<?php echo $this->tag->form("admin/roles/save"); ?>
+    <label for="role_inherits">Role Inherits From</label>
+    <?php
+    echo $this->tag->select(
+        array(
+            "role_inherits",
+            $roles,
+            "using" => array("name", "name"),
+            "class" => "form-control",
+            "useEmpty" => true,
+            'emptyText' => 'None',
+            'emptyValue' => "",
+            "class" => "form-control"
+        )
+    );
+    ?>
+    <label for="name">Name</label>
+    <?php echo $this->tag->textField(array("name", "class" => "form-control")); ?>
+    <label for="password">Description</label>
+    <?php echo $this->tag->textField(array("description", "class" => "form-control")); ?>
+    <hr>
+    <?php
+    echo $this->tag->submitButton(array("Save", "class" => "btn btn-primary"));
+echo $this->tag->endForm();
+?>

@@ -1,0 +1,22 @@
+<table class="table table-striped">
+    <thead>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Email</th>
+        <th>View</th>
+    </thead>
+    <tbody>
+    <?php foreach ($users as $user): ?>
+        <tr>
+            <td><?php echo $user->username; ?></td>
+            <td><?php echo $user->roles_name; ?></td>
+            <td><?php echo $user->email; ?></td>
+            <td>
+                <?php echo $this->tag->linkTo('admin/users/edit/'. $user->id, 'Edit') ?> |
+                <?php echo $this->tag->linkTo('admin/users/delete/'. $user->id, 'Delete') ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php echo $this->tag->linkTo(array('admin/users/new/', 'New user', 'class' => 'btn btn-primary')); ?>

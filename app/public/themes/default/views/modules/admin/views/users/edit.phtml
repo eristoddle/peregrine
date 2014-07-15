@@ -1,0 +1,25 @@
+<h3><?php echo ucfirst($this->dispatcher->getActionName()); ?> User</h3>
+<?php echo $this->tag->form("admin/users/save"); ?>
+    <?php echo $this->tag->hiddenField(array("id")); ?>
+    <label for="roles_name">Role</label>
+    <?php
+    echo $this->tag->select(
+        array(
+            "roles_nam",
+            $roles,
+            "using" => array("name", "name"),
+            "class" => "form-control"
+        )
+    );
+    ?>
+    <label for="username">Username</label>
+    <?php echo $this->tag->textField(array("username", "class" => "form-control")); ?>
+    <label for="email">Email</label>
+    <?php echo $this->tag->emailField(array("email", "class" => "form-control")); ?>
+    <label for="password">Password</label>
+    <?php echo $this->tag->passwordField(array("password", "class" => "form-control")); ?>
+    <hr>
+    <?php
+    echo $this->tag->submitButton(array("Save", "class" => "btn btn-primary"));
+echo $this->tag->endForm();
+?>

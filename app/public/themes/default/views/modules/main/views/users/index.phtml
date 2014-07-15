@@ -1,0 +1,9 @@
+<h3>Login</h3>
+<?php echo $this->tag->form("main/users/login"); ?>
+<label for="username">Username</label>
+<?php echo $this->tag->textField(array("username", "class" => "form-control")); ?>
+<label for="password">Password</label>
+<?php echo $this->tag->textField(array("password", "class" => "form-control")); ?>
+<hr>
+<?php echo $this->tag->submitButton(array("Login", "class" => "btn btn-primary")); ?>
+<?php echo $this->tag->endForm(); ?>
