@@ -1,0 +1,13 @@
+<h3>Register</h3>
+<?php echo $this->tag->form("users/create"); ?>
+<label for="username">Username</label>
+<?php echo $this->tag->textField(array("username", "class" => "form-control")); ?>
+<label for="email">Email</label>
+<?php echo $this->tag->emailField(array("email", "class" => "form-control")); ?>
+<label for="password">Password</label>
+<?php echo $this->tag->passwordField(array("password", "class" => "form-control")); ?>
+<hr>
+<?php
+echo $this->tag->submitButton(array("Register", "class" => "btn btn-primary"));
+echo $this->tag->endForm();
+?>

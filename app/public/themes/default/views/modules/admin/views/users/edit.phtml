@@ -5,7 +5,7 @@
     <?php
     echo $this->tag->select(
         array(
-            "roles_nam",
+            "roles_name",
             $roles,
             "using" => array("name", "name"),
             "class" => "form-control"
@@ -13,7 +13,13 @@
     );
     ?>
     <label for="username">Username</label>
-    <?php echo $this->tag->textField(array("username", "class" => "form-control")); ?>
+    <?php
+        if($this->dispatcher->getActionName() == 'edit'){
+            echo '<br>'.$this->tag->getValue("username").'<br>';
+        }else{
+            echo $this->tag->textField(array("username", "class" => "form-control"));
+        }
+    ?>
     <label for="email">Email</label>
     <?php echo $this->tag->emailField(array("email", "class" => "form-control")); ?>
     <label for="password">Password</label>

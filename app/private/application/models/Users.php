@@ -6,8 +6,6 @@ use Peregrine\Application\Models\ApplicationModel,
     Phalcon\Mvc\Model\Validator\Email as Email,
     Phalcon\Mvc\Model\Validator\Uniqueness as Uniqueness;
 
-;
-
 class Users extends ApplicationModel {
     public $id;
     public $roles_name;
@@ -37,20 +35,22 @@ class Users extends ApplicationModel {
             new Email(
                 array(
                     'field' => 'email',
-                    'required' => true,
+                    'required' => true
                 )
             )
         );
 
         $this->validate(
             new Uniqueness(array(
-                'field' => 'username'
+                'field' => 'username',
+                'message' => 'This username is already in use.'
             ))
         );
 
         $this->validate(
             new Uniqueness(array(
-                'field' => 'email'
+                'field' => 'email',
+                'message' => 'This email is already in use.'
             ))
         );
 

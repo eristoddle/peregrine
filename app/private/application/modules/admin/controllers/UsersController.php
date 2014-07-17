@@ -23,7 +23,6 @@ class UsersController extends ModuleController{
                     "id" => $user->id,
                     "roles_name" => $user->roles_name,
                     "username" => $user->username,
-                    "password" => $user->password,
                     "email" => $user->email,
                 )
             );
@@ -36,12 +35,17 @@ class UsersController extends ModuleController{
 
 	public function saveAction(){
 		if ($this->request->isPost()) {
-            $Users = new Models\Users();
-            $success = $Users->save($_POST);
+            $user = Models\Users::findFirstById($this->request->getPost('id'));
+            if(!$user){
+                $user = new Models\Users();
+            }
+            $user->email = $this->request->getPost('email');
+            $user->password = $this->security->hash($this->request->getPost('password'));
+            $success = $user->save();
             if($success){
                 $this->flash->success("User saved.");
             }else{
-                $this->flash->error(implode('<br>', $Users->getMessages()));
+                $this->flash->error(implode('<br>', $user->getMessages()));
             }
         }
         $this->goHome();
