@@ -113,38 +113,59 @@ class Application extends \Phalcon\Mvc\Application {
         );
 
         //Register the flash service with custom CSS classes
-        $this->di->set('flash', function(){
-            $flash = new \Phalcon\Flash\Session(array(
-                'error' => 'alert alert-danger',
-                'success' => 'alert alert-success',
-                'notice' => 'alert alert-info',
-            ));
-            return $flash;
-        });
+        $this->di->set(
+            'flash', function () {
+                $flash = new \Phalcon\Flash\Session(array(
+                    'error' => 'alert alert-danger',
+                    'success' => 'alert alert-success',
+                    'notice' => 'alert alert-info',
+                ));
+                return $flash;
+            }
+        );
 
         //Load configuration from database table
         $configuration = Models\Configuration::find();
-        if(!array_key_exists('peregrine', $config)){
+        if (!array_key_exists('peregrine', $config)) {
             $config['peregrine'] = array();
         }
-        foreach($configuration as $k => $v){
+        foreach ($configuration as $k => $v) {
             $config->peregrine[$v->key] = $v->value;
         }
         $this->di->set('config', $config);
 
-        //Add acl
+        //ACL
         $db = $this->di->get('db');
-        $this->di->set('acl', function () use ($db){
-            $acl = new \Phalcon\Acl\Adapter\Database(array(
-                'db' => $db,
-                'roles' => 'roles',
-                'rolesInherits' => 'roles_inherits',
-                'resources' => 'resources',
-                'resourcesAccesses' => 'resources_accesses',
-                'accessList' => 'access_list',
-            ));
-            return $acl;
-        });
+        $this->di->set(
+            'acl', function () use ($db) {
+                $acl = new \Phalcon\Acl\Adapter\Database(array(
+                    'db' => $db,
+                    'roles' => 'roles',
+                    'rolesInherits' => 'roles_inherits',
+                    'resources' => 'resources',
+                    'resourcesAccesses' => 'resources_accesses',
+                    'accessList' => 'access_list',
+                ));
+                return $acl;
+            }
+        );
+
+        //Encryption
+        $this->di->set(
+            'crypt', function () {
+                $crypt = new \Phalcon\Crypt();
+                $crypt->setKey('9VsOT89VY4kYKOzgMtaZ6hkSW2iS');
+                return $crypt;
+            }
+        );
+
+        //Cookies
+        $this->di->set(
+            'cookies', function () {
+                $cookies = new \Phalcon\Http\Response\Cookies();
+                return $cookies;
+            }
+        );
     }
 
     /**

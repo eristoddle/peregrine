@@ -58,5 +58,4 @@ class Users extends ApplicationModel {
             return false;
         }
     }
-
 }

@@ -13,3 +13,16 @@
         <?php echo Peregrine\Application\Helpers\CategoryMenu::tag(); ?>
     </div>
 </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">User</div>
+    <div class="panel-body">
+        <?php
+        if (isset($loggedIn) && $loggedIn){
+            echo $this->tag->linkTo(array('users/', 'Account', 'class' => 'btn btn-primary'));
+            echo $this->tag->linkTo(array('users/logout', 'Logout', 'class' => 'btn btn-primary'));
+        }else{
+            echo $this->tag->linkTo(array('users/', 'Login', 'class' => 'btn btn-primary'));
+        }
+        ?>
+    </div>
+</div>

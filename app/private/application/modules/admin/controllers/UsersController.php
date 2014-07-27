@@ -40,7 +40,9 @@ class UsersController extends ModuleController{
                 $user = new Models\Users();
             }
             $user->email = $this->request->getPost('email');
+            $user->username = $this->request->getPost('username');
             $user->password = $this->security->hash($this->request->getPost('password'));
+            $user->roles_name = $this->request->getPost('roles_name');
             $success = $user->save();
             if($success){
                 $this->flash->success("User saved.");
