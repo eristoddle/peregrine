@@ -1,3 +1,4 @@
+#!/bin/sh
 echo '### Install Apache2 ###'
 sudo apt-get -y install apache2
 a2enmod rewrite

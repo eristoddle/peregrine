@@ -34,6 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :path => "provision/shell/install_init.sh"
   config.vm.provision :shell, :path => "provision/shell/install_apache.sh"
   config.vm.provision :shell, :path => "provision/shell/install_php.sh"
+  config.vm.provision :shell, :path => "provision/shell/install_mysql.sh"
   config.vm.provision :shell, :path => "provision/shell/install_phalcon.sh"
   config.vm.provision :shell, :path => "provision/shell/install_phalcondevtools.sh"
   config.vm.provision :shell, :path => "provision/shell/install_phpqatools.sh"
